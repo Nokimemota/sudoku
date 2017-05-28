@@ -47,15 +47,25 @@ public class GameController : MonoBehaviour {
                 clues =  Random.Range(17, 22);
                 break;
         }
-        
-        for (int i = 0; i < clues; i++)
+        for (int i = 0; i < buttonList.Length; i++)
+        {
+            buttonList[i].text = " ";
+        }
+            for (int i = 0; i < clues; i++)
         {
             w = Random.Range(0, 80);
             Debug.Log(w);
-            buttonList[w].text = pattern[w / 9, w % 9].ToString();
-            buttonList[w].GetComponentInParent<Button>().interactable = false;
+            if (w < buttonList.Length && buttonList[w] != null)
+            {
+                buttonList[w].text = pattern[w / 9, w % 9].ToString();
+                var Component = buttonList[w].GetComponentInParent<Button>();
+                if (Component != null)
+                {
+                    Component.interactable = false;
+                }
+            }
         }
-        
+
     }
 
     void SetGameControllerReferenceOnButtons()
